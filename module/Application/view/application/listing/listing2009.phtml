@@ -1,0 +1,46 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 20
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Listing 20.9 view script
+ * 
+ * @package    Application
+ */
+
+$this->headTitle('Listing 20.9');
+$this->pageTitle('Listing 20.9');
+?>
+<h3>Geänderte Klasse <code>CommentEntity</code> für das <code>Comment</code> Modul</h3>
+<pre>
+&lt;?php
+namespace Comment\Entity;
+
+[...]
+
+class CommentEntity implements CommentEntityInterface
+{
+    [...]
+    
+    public function getFullText()
+    {
+        return strip_tags(implode("\n", array(
+            $this->getName(),
+            $this->getEmail(),
+            $this->getMessage(),
+        )));
+    }
+    
+    [...]
+}
+</pre>

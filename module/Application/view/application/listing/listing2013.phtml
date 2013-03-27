@@ -1,0 +1,42 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 20
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Listing 20.13 view script
+ * 
+ * @package    Application
+ */
+
+$this->headTitle('Listing 20.13');
+$this->pageTitle('Listing 20.13');
+?>
+<h3>Geänderte <code>index.phtml</code> für Anzeige der Spam Klassifizierung</h3>
+<pre>
+[...]
+&lt;table class="table table-striped table-bordered table-hover table-condensed"&gt;
+&lt;thead&gt;
+[...]
+&lt;th&gt;Spam&lt;/th&gt;
+[...]
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;?php foreach ($this-&gt;commentList as $comment): ?&gt;
+[...]
+&lt;td&gt;&lt;?php echo $this-&gt;spamCheck()-&gt;classify($comment-&gt;getFulltext(), 4); ?&gt;&lt;/td&gt;
+[...]
+&lt;?php endforeach; ?&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+[...]
+</pre>

@@ -1,0 +1,104 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 20
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Listing 20.4 view script
+ * 
+ * @package    Application
+ */
+
+$this->headTitle('Listing 20.4');
+$this->pageTitle('Listing 20.4');
+?>
+<h3><code>B8Service</code> für Zugriff auf <code>b8</code>-Objekt</h3>
+<pre>
+&lt;?php
+namespace SpamCheck\Service;
+
+class B8Service implements B8ServiceInterface
+{
+    protected $b8 = null;
+    
+    public function __construct(\b8 $b8)
+    {
+        $this->setB8($b8);
+    }
+    
+    public function getB8()
+    {
+        return $this->b8;
+    }
+    
+    public function setB8(\b8 $b8)
+    {
+        $this->b8 = $b8;
+        return $this;
+    }
+    
+    public function detectSpam($text)
+    {
+        $result = $this->classify($text);
+        
+        if ($result > $this->getB8()->config['rob_x']) {
+            $this->markAsSpam($text);
+            return true;
+        } else {
+            $this->markAsHam($text);
+            return false;
+        }
+    }
+    
+    public function markAsSpam($text)
+    {
+        // mark as spam
+        $this->getB8()->learn($text, \b8::SPAM);
+        
+        // return comment
+        return true;
+    }
+    
+    public function markAsHam($text)
+    {
+        // mark as ham
+        $this->getB8()->learn($text, \b8::HAM);
+        
+        // return comment
+        return true;
+    }
+    
+    public function markAsNoSpam($text)
+    {
+        // mark as spam
+        $this->getB8()->unlearn($text, \b8::SPAM);
+        
+        // return comment
+        return true;
+    }
+    
+    public function markAsNoHam($text)
+    {
+        // mark as ham
+        $this->getB8()->unlearn($text, \b8::HAM);
+    
+        // return comment
+        return true;
+    }
+    
+    public function classify($text)
+    {
+        // classify text
+        return $this->getB8()->classify($text);
+    }
+}
+</pre>

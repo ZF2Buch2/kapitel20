@@ -1,0 +1,76 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 20
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Listing 20.14 view script
+ * 
+ * @package    Application
+ */
+
+$this->headTitle('Listing 20.14');
+$this->pageTitle('Listing 20.14');
+?>
+<h3>Geänderte <code>show.phtml</code> für Anzeige der neuen Buttons</h3>
+<pre>
+&lt;?php
+[...]
+$id = $comment-&gt;getId();
+[...]
+?&gt;
+&lt;table class="table table-data"&gt;
+&lt;tbody&gt;
+[...]
+&lt;tr&gt;
+&lt;th&gt;Spamklassifizierung&lt;/th&gt;
+&lt;td&gt;&lt;?php echo $this-&gt;spamCheck()-&gt;classify($comment-&gt;getFulltext()); ?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+[...]
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="form-horizontal"&gt;
+&lt;div class="form-actions"&gt;
+&lt;?php if ($comment-&gt;getStatus() == 'new') : ?&gt;
+&lt;?php 
+$urlSpam = $this-&gt;url(
+    'comment-admin/action', array('action' =&gt; 'spam', 'id' =&gt; $id)
+);
+$urlHam  = $this-&gt;url(
+    'comment-admin/action', array('action' =&gt; 'ham', 'id' =&gt; $id)
+);
+?&gt;
+&lt;a href="&lt;?php echo $urlSpam; ?&gt;" class="btn"&gt;
+&lt;i class="icon-thumbs-down"&gt;&lt;/i&gt; Spam&lt;/a&gt;
+&lt;a href="&lt;?php echo $urlHam; ?&gt;" class="btn"&gt;
+&lt;i class="icon-thumbs-up"&gt;&lt;/i&gt; Ham&lt;/a&gt;
+&lt;?php elseif ($comment-&gt;getStatus() == 'approved'): ?&gt;
+&lt;?php 
+$urlNoHam  = $this-&gt;url(
+    'comment-admin/action', array('action' =&gt; 'no-ham', 'id' =&gt; $id)
+);
+?&gt;
+&lt;a href="&lt;?php echo $urlNoHam; ?&gt;" class="btn"&gt;
+&lt;i class="icon-thumbs-down"&gt;&lt;/i&gt; Kein Ham&lt;/a&gt;
+&lt;?php else: ?&gt;
+&lt;?php 
+$urlNoSpam  = $this-&gt;url(
+    'comment-admin/action', array('action' =&gt; 'no-spam', 'id' =&gt; $id)
+);
+?&gt;
+&lt;a href="&lt;?php echo $urlNoSpam; ?&gt;" class="btn"&gt;
+&lt;i class="icon-thumbs-up"&gt;&lt;/i&gt; Kein Spam&lt;/a&gt;
+&lt;?php endif; ?&gt;
+[...]
+&lt;/div&gt;
+&lt;/div&gt;
+</pre>

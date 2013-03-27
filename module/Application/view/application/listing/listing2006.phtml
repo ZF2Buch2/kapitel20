@@ -1,0 +1,77 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 20
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Listing 20.6 view script
+ * 
+ * @package    Application
+ */
+
+$this->headTitle('Listing 20.6');
+$this->pageTitle('Listing 20.6');
+?>
+<h3><code>SpamCheck</code> Controller-Plugin ermöglicht Zugriff auf <code>B8Service</code></h3>
+<pre>
+&lt;?php
+namespace SpamCheck\Controller\Plugin;
+
+use SpamCheck\Service\B8ServiceInterface;
+use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+
+class SpamCheck extends AbstractPlugin
+{
+    protected $b8Service;
+
+    public function __construct(B8ServiceInterface $b8Service)
+    {
+        $this->setB8Service($b8Service);
+    }
+
+    public function setB8Service(B8ServiceInterface $b8Service = null)
+    {
+        $this->b8Service = $b8Service;
+        return $this;
+    }
+    
+    public function getB8Service()
+    {
+        return $this->b8Service;
+    }
+    
+    public function __invoke()
+    {
+        return $this;
+    }
+    
+    public function markAsSpam($text)
+    {
+        return $this->getB8Service()->markAsSpam($text);
+    }
+    
+    public function markAsHam($text)
+    {
+        return $this->getB8Service()->markAsHam($text);
+    }
+    
+    public function markAsNoSpam($text)
+    {
+        return $this->getB8Service()->markAsNoSpam($text);
+    }
+    
+    public function markAsNoHam($text)
+    {
+        return $this->getB8Service()->markAsNoHam($text);
+    }
+}
+</pre>
